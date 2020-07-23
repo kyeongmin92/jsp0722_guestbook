@@ -1,9 +1,8 @@
-package com.guest.test;
+package com.guest.test.testdao;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,19 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import com.guest.dao.MessageDao;
 import com.guest.jdbc.ConnectionProvider;
 import com.guest.jdbc.JdbcUtil;
-import com.guest.model.Message;
 
 /**
- * Servlet implementation class MessageDaoSelectListTestServlet
+ * Servlet implementation class MessageDaoDeleteTestServlet
  */
-@WebServlet("/MessageDaoSelectListTestServlet")
-public class MessageDaoSelectListTestServlet extends HttpServlet {
+@WebServlet("/MessageDaoDeleteTestServlet")
+public class MessageDaoDeleteTestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MessageDaoSelectListTestServlet() {
+    public MessageDaoDeleteTestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,18 +34,12 @@ public class MessageDaoSelectListTestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = null;
-		int firstRow = 1;
-		int endRow = 20;
+		int messageId =19;
 		try {
 			conn = ConnectionProvider.getConnection();
 			MessageDao dao = MessageDao.getInstance();
-			
-			List<Message> list = dao.selectList(conn, firstRow, endRow);
-			
-			for(int i=0; i<list.size(); i++) {
-				System.out.println("----" + (i+1) + "----");
-				System.out.println(list.get(i));
-			}
+			int cnt = dao.delete(conn, messageId);
+			System.out.println(cnt+"개 삭제됨");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

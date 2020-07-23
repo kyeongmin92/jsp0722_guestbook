@@ -1,6 +1,6 @@
 package com.guest.dao;
 
-import java.sql.Connection;
+import java.sql.Connection; 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,7 +62,8 @@ public class MessageDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
-
+	
+	// makeMessageFromResultSet에서는 ResultSet에서 값을 가져와서 모델에 하나씩 넣는 과정
 	private Message makeMessageFromResultSet(ResultSet rs) throws SQLException {
 		Message message = new Message();
 		message.setId(rs.getInt("message_id"));
@@ -73,6 +74,7 @@ public class MessageDao {
 		return message;
 	}
 	
+	// selectCount는 테이블에서 저장된 행의 개수를 리턴
 	public int selectCount(Connection conn) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -86,6 +88,7 @@ public class MessageDao {
 		}
 	}
 	
+	// 시작행과 끝행에 해당되는 메세지 목록을 읽어온다
 	public List<Message> selectList(Connection conn, int firstRow, int endRow) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -107,6 +110,7 @@ public class MessageDao {
 			}		
 		}
 	
+	// 지정한 주요키에 해당하는 행의 데이터를 삭제하는 쿼리를 실행하고 삭제된 행의 갯수를 리턴
 	public int delete(Connection conn, int messageId) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {

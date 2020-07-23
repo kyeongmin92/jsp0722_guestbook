@@ -1,4 +1,4 @@
-package com.guest.test;
+package com.guest.test.testdao;
 
 import java.io.IOException;
 import java.sql.Connection;

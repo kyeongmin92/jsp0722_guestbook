@@ -1,4 +1,4 @@
-package com.guest.test;
+package com.guest.test.testdao;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,18 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 import com.guest.dao.MessageDao;
 import com.guest.jdbc.ConnectionProvider;
 import com.guest.jdbc.JdbcUtil;
+import com.guest.model.Message;
 
 /**
- * Servlet implementation class MessageDaoDeleteTestServlet
+ * Servlet implementation class MessageDaoSelectTestServlet
  */
-@WebServlet("/MessageDaoDeleteTestServlet")
-public class MessageDaoDeleteTestServlet extends HttpServlet {
+@WebServlet("/MessageDaoSelectTestServlet")
+public class MessageDaoSelectTestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MessageDaoDeleteTestServlet() {
+    public MessageDaoSelectTestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,18 +35,21 @@ public class MessageDaoDeleteTestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = null;
-		int messageId =3;
 		try {
 			conn = ConnectionProvider.getConnection();
-			MessageDao dao = MessageDao.getInstance();
-			int cnt = dao.delete(conn, messageId);
-			System.out.println(cnt+"개 삭제됨");
+			int messageId = 1;
 			
+			MessageDao dao = MessageDao.getInstance();
+			Message message = dao.select(conn, messageId);
+			
+			System.out.println(message);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(conn);
 		}
+				
+		
 		
 	}
 

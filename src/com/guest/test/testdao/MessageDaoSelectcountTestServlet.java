@@ -1,4 +1,4 @@
-package com.guest.test;
+package com.guest.test.testdao;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,16 +16,16 @@ import com.guest.jdbc.JdbcUtil;
 import com.guest.model.Message;
 
 /**
- * Servlet implementation class MessageDaoSelectTestServlet
+ * Servlet implementation class MessageDaoSelectcountTestServlet
  */
-@WebServlet("/MessageDaoSelectTestServlet")
-public class MessageDaoSelectTestServlet extends HttpServlet {
+@WebServlet("/MessageDaoSelectcountTestServlet")
+public class MessageDaoSelectcountTestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MessageDaoSelectTestServlet() {
+    public MessageDaoSelectcountTestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,20 +37,14 @@ public class MessageDaoSelectTestServlet extends HttpServlet {
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			int messageId = 1;
-			
 			MessageDao dao = MessageDao.getInstance();
-			Message message = dao.select(conn, messageId);
-			
-			System.out.println(message);
+			int count = dao.selectCount(conn);
+			System.out.println(count);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(conn);
 		}
-				
-		
-		
 	}
 
 	/**
