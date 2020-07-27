@@ -18,6 +18,7 @@ public class WriteMessageService {
 	private WriteMessageService() {
 		
 	}
+	// 싱글톤 패턴
 	
 	public boolean write(Message message) {
 		Connection conn = null;
@@ -25,6 +26,7 @@ public class WriteMessageService {
 		try {
 			conn = ConnectionProvider.getConnection();
 			MessageDao messageDao = MessageDao.getInstance();
+			// MessageDao의 insert 메소드를 이용해서 메시지를 테이블에 추가 
 			messageDao.insert(conn, message);
 		} catch(SQLException e) {
 			e.printStackTrace();
